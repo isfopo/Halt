@@ -25,7 +25,7 @@ export async function activate(
   // The implementation of the log function that is called from WASM
   const service: timer.Imports.Promisified = {
     log: (msg: string) => {
-      log.info(msg);
+      channel.appendLine(msg);
     },
   };
 
@@ -55,15 +55,7 @@ export async function activate(
       viewProvider.show();
 
       channel.show();
-      channel.appendLine("Running calculator example");
-      const add = Types.Operation.Add({ left: 1, right: 2 });
-      channel.appendLine(`Add ${await api.calc(add)}`);
-      const sub = Types.Operation.Sub({ left: 10, right: 8 });
-      channel.appendLine(`Sub ${await api.calc(sub)}`);
-      const mul = Types.Operation.Mul({ left: 3, right: 7 });
-      channel.appendLine(`Mul ${await api.calc(mul)}`);
-      const div = Types.Operation.Div({ left: 10, right: 2 });
-      channel.appendLine(`Div ${await api.calc(div)}`);
+      await api.start(1000);
     })
   );
 }

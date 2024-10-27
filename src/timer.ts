@@ -88,6 +88,7 @@ export namespace timer {
 	}
 	export type Exports = {
 		calc: (o: Operation) => u32;
+		start: (s: u32) => void;
 	};
 	export namespace Exports {
 		export type Promisified = $wcm.$exports.Promisify<Exports>;
@@ -105,7 +106,7 @@ export namespace Types.$ {
 	export const Operation = new $wcm.VariantType<Types.Operation, Types.Operation._tt, Types.Operation._vt>([['add', Operands], ['sub', Operands], ['mul', Operands], ['div', Operands]], Types.Operation._ctor);
 }
 export namespace Types._ {
-	export const id = 'vscode:example/types' as const;
+	export const id = 'halt:timer/types' as const;
 	export const witName = 'types' as const;
 	export const types: Map<string, $wcm.AnyComponentModelType> = new Map<string, $wcm.AnyComponentModelType>([
 		['Operands', $.Operands],
@@ -125,10 +126,13 @@ export namespace timer.$ {
 		export const calc = new $wcm.FunctionType<timer.Exports['calc']>('calc',[
 			['o', Operation],
 		], $wcm.u32);
+		export const start = new $wcm.FunctionType<timer.Exports['start']>('start',[
+			['s', $wcm.u32],
+		], undefined);
 	}
 }
 export namespace timer._ {
-	export const id = 'vscode:example/timer' as const;
+	export const id = 'halt:timer/timer' as const;
 	export const witName = 'timer' as const;
 	export type $Root = {
 		'log': (msg_ptr: i32, msg_len: i32) => void;
@@ -152,7 +156,8 @@ export namespace timer._ {
 	};
 	export namespace exports {
 		export const functions: Map<string, $wcm.FunctionType> = new Map([
-			['calc', $.exports.calc]
+			['calc', $.exports.calc],
+			['start', $.exports.start]
 		]);
 		export function bind(exports: Exports, context: $wcm.WasmContext): timer.Exports {
 			return $wcm.$exports.bind<timer.Exports>(_, exports, context);
@@ -160,6 +165,7 @@ export namespace timer._ {
 	}
 	export type Exports = {
 		'calc': (o_Operation_case: i32, o_Operation_0: i32, o_Operation_1: i32) => i32;
+		'start': (s: i32) => void;
 	};
 	export function bind(service: timer.Imports, code: $wcm.Code, context?: $wcm.ComponentModelContext): Promise<timer.Exports>;
 	export function bind(service: timer.Imports.Promisified, code: $wcm.Code, port: $wcm.RAL.ConnectionPort, context?: $wcm.ComponentModelContext): Promise<timer.Exports.Promisified>;

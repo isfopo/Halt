@@ -1,5 +1,6 @@
-// Use a procedural macro to generate bindings for the world we specified in
-// `host.wit`
+use std::thread;
+use std::time::Duration;
+
 wit_bindgen::generate!({
     // the name of the world in the `*.wit` input file
     world: "timer",
@@ -18,6 +19,11 @@ impl Guest for Timer {
         };
         log(&format!("Finished calculation: {:?}", op));
         result
+    }
+
+    fn start(seconds: u32) {
+        log(&format!("Waiting for {} seconds...", seconds));
+        log(&format!("Finished waiting for {} seconds.", seconds));
     }
 }
 

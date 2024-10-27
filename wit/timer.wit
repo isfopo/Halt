@@ -1,5 +1,5 @@
 // wit/timer.wit
-package vscode:example;
+package halt:timer;
 
 interface types {
 	record operands {
@@ -19,4 +19,5 @@ world timer {
 	import log: func(msg: string);
 
 	export calc: func(o: operation) -> u32;
+	export start: func(s: u32);
 }
