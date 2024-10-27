@@ -1,6 +1,6 @@
-# WASM Component Model Example With Svelte Webview
+# Halt
 
-An example demonstrating how to use the component model to integrate WebAssembly code into VS Code while providing a Webview written with Svelte.
+An unforgiving productivity timer for the hyper-focused.
 
 ## Functionality
 
@@ -24,7 +24,3 @@ To run the sample the following tool chains need to be installed
 As a pre-requisite follow the instructions [here](https://code.visualstudio.com/api/extension-guides/web-extensions#test-your-web-extension-in-vscode.dev) to generate necessary certificate to side load the extension into vscode.dev or insiders.vscode.dev.
 
 Then compile the extension for the Web by running `npm run esbuild`, start a local extension server using `npm run serve`, open vscode.dev or insiders.vscode.dev in a browser and execute the command `Install Extension from Location`. As a location use `https://localhost:5000`.
-
-## Restrictions
-
-This project is currently restricted to Svelte 4 - Svelte 5 throws a runtime error when trying to get the "fistChild" node.
