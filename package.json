@@ -63,6 +63,6 @@
     "watch": "npm run watch:wasm && concurrently \"npm run watch:view\"  \"npm run watch:extension\"",
     "lint": "eslint ./src",
     "serve": "serve --cors -l 5000 --ssl-cert $HOME/certs/localhost.pem --ssl-key $HOME/certs/localhost-key.pem",
-    "clean": "rm -rf node_modules && npm install"
+    "clean": "rm -rf node_modules && rm -rf out && rm -rf target && npm install"
   }
 }

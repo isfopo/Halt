@@ -4,8 +4,6 @@ An unforgiving productivity timer for the hyper-focused.
 
 ## Functionality
 
-A simple calculator that can perform add, sub, mul and div. The calculator is implemented in Rust and compiled to WebAssembly code. The execution of the WASM code happens in a separate worker and the communication with the WASM code is asynchronously.
-
 ## Pre-requisites
 
 To run the sample the following tool chains need to be installed

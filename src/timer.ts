@@ -74,7 +74,7 @@ export namespace Types {
 }
 export type Types = {
 };
-export namespace calculator {
+export namespace timer {
 	export type Operation = Types.Operation;
 	export const Operation = Types.Operation;
 	export type Imports = {
@@ -114,22 +114,22 @@ export namespace Types._ {
 	export type WasmInterface = {
 	};
 }
-export namespace calculator.$ {
+export namespace timer.$ {
 	export const Operation = Types.$.Operation;
 	export namespace imports {
-		export const log = new $wcm.FunctionType<calculator.Imports['log']>('log',[
+		export const log = new $wcm.FunctionType<timer.Imports['log']>('log',[
 			['msg', $wcm.wstring],
 		], undefined);
 	}
 	export namespace exports {
-		export const calc = new $wcm.FunctionType<calculator.Exports['calc']>('calc',[
+		export const calc = new $wcm.FunctionType<timer.Exports['calc']>('calc',[
 			['o', Operation],
 		], $wcm.u32);
 	}
 }
-export namespace calculator._ {
-	export const id = 'vscode:example/calculator' as const;
-	export const witName = 'calculator' as const;
+export namespace timer._ {
+	export const id = 'vscode:example/timer' as const;
+	export const witName = 'timer' as const;
 	export type $Root = {
 		'log': (msg_ptr: i32, msg_len: i32) => void;
 	};
@@ -140,11 +140,11 @@ export namespace calculator._ {
 		export const interfaces: Map<string, $wcm.InterfaceType> = new Map<string, $wcm.InterfaceType>([
 			['Types', Types._]
 		]);
-		export function create(service: calculator.Imports, context: $wcm.WasmContext): Imports {
+		export function create(service: timer.Imports, context: $wcm.WasmContext): Imports {
 			return $wcm.$imports.create<Imports>(_, service, context);
 		}
-		export function loop(service: calculator.Imports, context: $wcm.WasmContext): calculator.Imports {
-			return $wcm.$imports.loop<calculator.Imports>(_, service, context);
+		export function loop(service: timer.Imports, context: $wcm.WasmContext): timer.Imports {
+			return $wcm.$imports.loop<timer.Imports>(_, service, context);
 		}
 	}
 	export type Imports = {
@@ -154,16 +154,16 @@ export namespace calculator._ {
 		export const functions: Map<string, $wcm.FunctionType> = new Map([
 			['calc', $.exports.calc]
 		]);
-		export function bind(exports: Exports, context: $wcm.WasmContext): calculator.Exports {
-			return $wcm.$exports.bind<calculator.Exports>(_, exports, context);
+		export function bind(exports: Exports, context: $wcm.WasmContext): timer.Exports {
+			return $wcm.$exports.bind<timer.Exports>(_, exports, context);
 		}
 	}
 	export type Exports = {
 		'calc': (o_Operation_case: i32, o_Operation_0: i32, o_Operation_1: i32) => i32;
 	};
-	export function bind(service: calculator.Imports, code: $wcm.Code, context?: $wcm.ComponentModelContext): Promise<calculator.Exports>;
-	export function bind(service: calculator.Imports.Promisified, code: $wcm.Code, port: $wcm.RAL.ConnectionPort, context?: $wcm.ComponentModelContext): Promise<calculator.Exports.Promisified>;
-	export function bind(service: calculator.Imports | calculator.Imports.Promisified, code: $wcm.Code, portOrContext?: $wcm.RAL.ConnectionPort | $wcm.ComponentModelContext, context?: $wcm.ComponentModelContext | undefined): Promise<calculator.Exports> | Promise<calculator.Exports.Promisified> {
+	export function bind(service: timer.Imports, code: $wcm.Code, context?: $wcm.ComponentModelContext): Promise<timer.Exports>;
+	export function bind(service: timer.Imports.Promisified, code: $wcm.Code, port: $wcm.RAL.ConnectionPort, context?: $wcm.ComponentModelContext): Promise<timer.Exports.Promisified>;
+	export function bind(service: timer.Imports | timer.Imports.Promisified, code: $wcm.Code, portOrContext?: $wcm.RAL.ConnectionPort | $wcm.ComponentModelContext, context?: $wcm.ComponentModelContext | undefined): Promise<timer.Exports> | Promise<timer.Exports.Promisified> {
 		return $wcm.$main.bind(_, service, code, portOrContext, context);
 	}
 }
