@@ -9,7 +9,7 @@
       "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
       "outFiles": ["${workspaceRoot}/out/**/*.js"],
       "sourceMaps": true,
-      "preLaunchTask": "Watch"
+      "preLaunchTask": "npm: build"
     }
   ]
 }
