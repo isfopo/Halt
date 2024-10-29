@@ -27,9 +27,6 @@
       }
     ]
   },
-  "dependencies": {
-    "@vscode/wasm-component-model": "^1.0.1"
-  },
   "devDependencies": {
     "@types/node": "^20",
     "@types/vscode": "1.89.0",
@@ -51,18 +48,15 @@
     "webpack-cli": "^5.1.4"
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "generate:model": "wit2ts --outDir ./src ./wit",
-    "compile:wasm": "cargo build --target wasm32-unknown-unknown",
     "compile:extension": "tsc -b",
     "compile:view": "webpack --config src/view/webpack.config.mjs",
-    "build": "npm run compile:view && npm run compile:extension && npm run compile:wasm",
-    "watch:wasm": "cargo build --target wasm32-unknown-unknown",
+    "build": "npm run compile:view && npm run compile:extension",
     "watch:extension": "tsc -b -w",
     "watch:view": "webpack --config src/view/webpack.config.mjs --watch",
-    "watch": "npm run watch:wasm && concurrently \"npm run watch:view\"  \"npm run watch:extension\"",
-    "lint": "eslint ./src",
+    "watch": "concurrently \"npm run watch:view\"  \"npm run watch:extension\"",
+    "vscode:prepublish": "npm run compile",
     "serve": "serve --cors -l 5000 --ssl-cert $HOME/certs/localhost.pem --ssl-key $HOME/certs/localhost-key.pem",
-    "clean": "rm -rf node_modules && rm -rf out && rm -rf target && npm install"
+    "lint": "eslint ./src",
+    "clean": "rm -rf node_modules && npm install"
   }
 }
