@@ -6,19 +6,14 @@ import * as vscode from "vscode";
 import { Worker } from "worker_threads";
 
 import { HaltViewProvider } from "./HaltViewProvider";
+import { channel } from "diagnostics_channel";
+import { Logger } from "./Logger";
 
 export async function activate(
   context: vscode.ExtensionContext
 ): Promise<void> {
-  // The channel for printing the result.
-  const channel = vscode.window.createOutputChannel("Calculator");
-  context.subscriptions.push(channel);
-
-  // The channel for printing the log.
-  const log = vscode.window.createOutputChannel("Calculator - Log", {
-    log: true,
-  });
-  context.subscriptions.push(log);
+  // Create logger
+  const logger = new Logger(context);
 
   // Register the Panel
   const viewProvider = new HaltViewProvider(context.extensionUri);
@@ -26,8 +21,6 @@ export async function activate(
   context.subscriptions.push(
     vscode.commands.registerCommand("halt.show", async () => {
       viewProvider.show();
-
-      channel.show();
     })
   );
 }
