@@ -1,1 +1,1 @@
-{"root":["./src/haltviewprovider.ts","./src/extension.ts"],"version":"5.6.3"}
+{"root":["./src/haltviewprovider.ts","./src/logger.ts","./src/timer.ts","./src/extension.ts","./src/worker/timer.ts","./src/worker/types.ts"],"version":"5.6.3"}
