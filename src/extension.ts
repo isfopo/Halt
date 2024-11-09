@@ -15,7 +15,7 @@ export async function activate(
   const logger = Logger.getInstance(context);
 
   try {
-    const timer = new Timer(context);
+    const timer = new Timer();
 
     // Register the Panel
     const viewProvider = new HaltViewProvider(context.extensionUri);
@@ -26,7 +26,7 @@ export async function activate(
         logger.log.appendLine("Show");
 
         timer.start(1000, {
-          onFinish: (value) => {
+          onFinish: () => {
             viewProvider.show();
           },
         });
