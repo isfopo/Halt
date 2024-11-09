@@ -1,1 +1,1 @@
-{"root":["./src/haltviewprovider.ts","./src/logger.ts","./src/timer.ts","./src/extension.ts"],"version":"5.6.3"}
+{"root":["./src/countdownstatusbardisplay.ts","./src/haltviewprovider.ts","./src/logger.ts","./src/timer.ts","./src/extension.ts","./src/helpers/time.ts"],"version":"5.6.3"}

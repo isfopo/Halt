@@ -8,6 +8,7 @@ import { HaltViewProvider } from "./HaltViewProvider";
 import { Timer } from "./Timer";
 import { Logger } from "./Logger";
 import { minutes } from "./helpers/time";
+import { CountdownStatusBarDisplay } from "./CountdownStatusBarDisplay";
 
 export async function activate(
   context: vscode.ExtensionContext
@@ -21,9 +22,12 @@ export async function activate(
     // Register the Panel
     const viewProvider = new HaltViewProvider(context.extensionUri);
 
+    const countdownStatusBarItem = new CountdownStatusBarDisplay();
+
     context.subscriptions.push(
       vscode.commands.registerCommand("halt.start", async () => {
         timer.start(minutes(20), {
+          onSecond: ({ remaining }) => countdownStatusBarItem.update(remaining),
           onFinish: () => {
             viewProvider.show();
           },
