@@ -1,36 +1,63 @@
 import * as vscode from "vscode";
-import { Worker } from "worker_threads";
+import { Logger } from "./Logger";
+
+export type State = "ready" | "running" | "ended";
+
+export interface CallbackParams {}
+
+export interface OnSecondParams extends CallbackParams {
+  remaining: number;
+}
+
+export interface onFinishParams extends CallbackParams {}
 
 export interface StartOptions {
-  onFinish?: () => void;
-  interval?: number;
-  onInterval?: () => void;
+  onSecond?: (params: OnSecondParams) => void;
+  onFinish?: (params: onFinishParams) => void;
 }
+
 export interface StopOptions {}
 
 export class Timer {
-  private static _instance: Timer;
-  private readonly worker: Worker;
-  private readonly context: vscode.ExtensionContext;
+  private _end: number | undefined;
+  private interval: NodeJS.Timeout | undefined;
 
-  private constructor(context: vscode.ExtensionContext) {
-    this.context = context;
+  private _state: State;
 
-    this.worker = new Worker(
-      new URL(
-        vscode.Uri.file(
-          `${this.context.extensionUri.path}/worker/timer.js`
-        ).toString()
-      )
-    );
+  get state() {
+    return this._state;
   }
 
-  public static getInstance(context: vscode.ExtensionContext): Timer {
-    // Do you need arguments? Make it a regular static method instead.
-    return this._instance || (this._instance = new this(context));
+  get end() {
+    return this._end;
   }
 
-  public start(duration: number, {}: StartOptions = {}): void {}
+  constructor() {
+    this._state = "ready";
+  }
 
-  public stop({}: StopOptions): void {}
+  public start(duration: number, { onFinish }: StartOptions = {}): void {
+    if (this._state !== "ready") {
+      throw new Error("Timer is already running");
+    }
+    this._state = "running";
+
+    this._end = Date.now() + duration * 1000;
+
+    this.interval = setInterval(() => {
+      const remaining = Math.round((this.end! - Date.now()) / 1000);
+
+      if (remaining <= 0) {
+        clearInterval(this.interval);
+        this._state = "ended";
+        onFinish?.({});
+      }
+    }, 1000);
+  }
+
+  public stop({}: StopOptions): void {
+    clearInterval(this.interval);
+
+    this._state = "ended";
+  }
 }

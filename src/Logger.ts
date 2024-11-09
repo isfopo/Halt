@@ -1,10 +1,12 @@
 import * as vscode from "vscode";
 
 export class Logger {
+  static _instance: Logger;
+
   private readonly context: vscode.ExtensionContext;
   readonly log: vscode.LogOutputChannel;
 
-  constructor(context: vscode.ExtensionContext) {
+  private constructor(context: vscode.ExtensionContext) {
     this.context = context;
 
     // The channel for printing the log.
@@ -13,5 +15,13 @@ export class Logger {
     });
 
     this.context.subscriptions.push(this.log);
+  }
+
+  public static getInstance(context: vscode.ExtensionContext): Logger {
+    if (!Logger._instance) {
+      Logger._instance = new Logger(context);
+    }
+
+    return Logger._instance;
   }
 }

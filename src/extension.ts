@@ -12,16 +12,24 @@ export async function activate(
   context: vscode.ExtensionContext
 ): Promise<void> {
   // Create logger
-  const logger = new Logger(context);
+  const logger = Logger.getInstance(context);
+
   try {
-    const timer = Timer.getInstance(context);
+    const timer = new Timer(context);
 
     // Register the Panel
     const viewProvider = new HaltViewProvider(context.extensionUri);
 
     context.subscriptions.push(
       vscode.commands.registerCommand("halt.show", async () => {
-        timer.start(1000, {});
+        logger.log.show();
+        logger.log.appendLine("Show");
+
+        timer.start(1000, {
+          onFinish: (value) => {
+            viewProvider.show();
+          },
+        });
       })
     );
   } catch (e) {
