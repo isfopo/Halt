@@ -22,9 +22,6 @@ export async function activate(
 
     context.subscriptions.push(
       vscode.commands.registerCommand("halt.show", async () => {
-        logger.log.show();
-        logger.log.appendLine("Show");
-
         timer.start(1000, {
           onFinish: () => {
             viewProvider.show();

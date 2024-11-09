@@ -1,5 +1,4 @@
-import * as vscode from "vscode";
-import { Logger } from "./Logger";
+import { SECOND } from "./consts";
 
 export type State = "ready" | "running" | "ended";
 
@@ -36,23 +35,27 @@ export class Timer {
     this._state = "ready";
   }
 
-  public start(duration: number, { onFinish }: StartOptions = {}): void {
+  public start(
+    duration: number,
+    { onSecond, onFinish }: StartOptions = {}
+  ): void {
     if (this._state !== "ready") {
       throw new Error("Timer is already running");
     }
     this._state = "running";
 
-    this._end = Date.now() + duration * 1000;
+    this._end = Date.now() + duration;
 
     this.interval = setInterval(() => {
       const remaining = Math.round((this.end! - Date.now()) / 1000);
+      onSecond?.({ remaining });
 
       if (remaining <= 0) {
         clearInterval(this.interval);
         this._state = "ended";
         onFinish?.({});
       }
-    }, 1000);
+    }, SECOND);
   }
 
   public stop({}: StopOptions): void {
