@@ -1,4 +1,4 @@
-import { SECOND } from "./consts";
+import { SECOND } from "./helpers/time";
 
 export type State = "ready" | "running" | "ended";
 
