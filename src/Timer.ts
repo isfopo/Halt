@@ -63,4 +63,13 @@ export class Timer {
 
     this._state = "ended";
   }
+
+  public reset(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
+    this._state = "ready";
+    this._end = undefined;
+  }
 }
