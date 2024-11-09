@@ -21,8 +21,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "halt.show",
-        "title": "Show",
+        "command": "halt.start",
+        "title": "Start Focus Session",
         "category": "Halt"
       }
     ]

@@ -7,6 +7,7 @@ import * as vscode from "vscode";
 import { HaltViewProvider } from "./HaltViewProvider";
 import { Timer } from "./Timer";
 import { Logger } from "./Logger";
+import { minutes } from "./helpers/time";
 
 export async function activate(
   context: vscode.ExtensionContext
@@ -21,8 +22,8 @@ export async function activate(
     const viewProvider = new HaltViewProvider(context.extensionUri);
 
     context.subscriptions.push(
-      vscode.commands.registerCommand("halt.show", async () => {
-        timer.start(1000, {
+      vscode.commands.registerCommand("halt.start", async () => {
+        timer.start(minutes(20), {
           onFinish: () => {
             viewProvider.show();
           },
