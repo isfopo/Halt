@@ -47,7 +47,7 @@ export class Timer {
     this._end = Date.now() + duration;
 
     this.interval = setInterval(() => {
-      const remaining = Math.round((this.end! - Date.now()) / 1000);
+      const remaining = this.end! - Date.now();
       onSecond?.({ remaining });
 
       if (remaining <= 0) {

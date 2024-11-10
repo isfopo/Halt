@@ -1,4 +1,9 @@
+import { format } from "./helpers/time";
 import * as vscode from "vscode";
+
+export interface UpdateOptions {
+  icon?: "clock";
+}
 
 export class CountdownStatusBarDisplay {
   private statusBarItem: vscode.StatusBarItem;
@@ -11,8 +16,11 @@ export class CountdownStatusBarDisplay {
     this.statusBarItem.show();
   }
 
-  public update(remaining: number) {
-    this.statusBarItem.text = `$(clock) ${remaining}`;
+  public update(
+    remaining: number,
+    { icon }: UpdateOptions = { icon: "clock" }
+  ): void {
+    this.statusBarItem.text = `$(${icon}) ${format(remaining)}`;
   }
 
   public dispose() {

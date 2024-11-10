@@ -38,3 +38,10 @@ export const minutes = (value: number) => value * MINUTE;
  * @returns The equivalent duration in milliseconds.
  */
 export const hours = (value: number) => value * HOUR;
+
+export const format = (value: number): string => {
+  const minutes = Math.floor((value % HOUR) / MINUTE);
+  const seconds = Math.floor((value % MINUTE) / SECOND);
+
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+};
