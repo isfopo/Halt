@@ -39,9 +39,20 @@ export const minutes = (value: number) => value * MINUTE;
  */
 export const hours = (value: number) => value * HOUR;
 
-export const format = (value: number): string => {
-  const minutes = Math.floor((value % HOUR) / MINUTE);
-  const seconds = Math.floor((value % MINUTE) / SECOND);
+/**
+ * Formats a given duration in milliseconds into a string representation
+ * of minutes and seconds. The function calculates the number of whole
+ * minutes and remaining seconds from the input value and returns them
+ * in the format "MM:SS".
+ *
+ * @param ms - The duration in milliseconds to format.
+ * @returns A string representing the duration in the format "MM:SS",
+ *          where MM is the number of minutes and SS is the number of
+ *          seconds padded to two digits.
+ */
+export const format = (ms: number): string => {
+  const minutes = Math.floor((ms % HOUR) / MINUTE);
+  const seconds = Math.floor((ms % MINUTE) / SECOND);
 
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };
